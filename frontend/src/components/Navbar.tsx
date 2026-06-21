@@ -37,7 +37,7 @@ export default function Navbar() {
                   {link.name}
                 </Link>
               ))}
-              <a href="#join" className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
+              <a href="https://chat.whatsapp.com/Ivjz21ZZgM7FvO0nz1q60B" target="_blank" rel="noopener noreferrer" className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
                 Join Community
               </a>
             </div>
@@ -75,7 +75,9 @@ export default function Navbar() {
                 </Link>
               ))}
               <a 
-                href="#join" 
+                href="https://chat.whatsapp.com/Ivjz21ZZgM7FvO0nz1q60B" 
+                target="_blank" 
+                rel="noopener noreferrer"
                 className="block px-3 py-2 rounded-md text-base font-medium bg-primary text-white mt-4 text-center"
                 onClick={() => setIsOpen(false)}
               >

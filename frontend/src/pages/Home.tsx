@@ -50,7 +50,7 @@ export default function Home() {
           </motion.p>
           
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="#join" className="w-full sm:w-auto px-8 py-3 rounded-lg bg-primary text-white font-medium hover:bg-primary/90 transition-all flex items-center justify-center gap-2 group">
+            <a href="https://chat.whatsapp.com/Ivjz21ZZgM7FvO0nz1q60B" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto px-8 py-3 rounded-lg bg-primary text-white font-medium hover:bg-primary/90 transition-all flex items-center justify-center gap-2 group">
               Join Community
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </a>
