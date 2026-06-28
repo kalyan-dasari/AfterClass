@@ -7,6 +7,9 @@ import Resources from './pages/Resources'
 import Opportunities from './pages/Opportunities'
 import Projects from './pages/Projects'
 import Members from './pages/Members'
+import Internships from './pages/Internships'
+import AdminLogin from './pages/AdminLogin'
+import AdminDashboard from './pages/AdminDashboard'
 
 function App() {
   return (
@@ -20,6 +23,9 @@ function App() {
           <Route path="/opportunities" element={<Opportunities />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/members" element={<Members />} />
+          <Route path="/internships" element={<Internships />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
       </main>
       <Footer />

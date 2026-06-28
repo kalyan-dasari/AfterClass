@@ -47,7 +47,7 @@ export default function Footer() {
             <ul className="space-y-3 text-sm text-foreground/70">
               <li className="flex items-start gap-2">
                 <MapPin className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-                <span>Siri Deluxe Boys Hostel, Maisammaguda, Medchal, Telangana</span>
+                <span>Maisammaguda, Medchal, Telangana</span>
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-primary shrink-0" />

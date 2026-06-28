@@ -1,0 +1,9 @@
+{
+  "name": "afterclass",
+  "private": true,
+  "scripts": {
+    "dev": "cd frontend && npm run dev:all",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build"
+  }
+}

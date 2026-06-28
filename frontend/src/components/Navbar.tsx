@@ -12,6 +12,7 @@ export default function Navbar() {
     { name: 'Resources', path: '/resources' },
     { name: 'Projects', path: '/projects' },
     { name: 'Opportunities', path: '/opportunities' },
+    { name: 'Internships', path: '/internships' },
     { name: 'Members', path: '/members' },
   ]
 
