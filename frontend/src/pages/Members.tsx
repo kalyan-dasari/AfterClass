@@ -8,9 +8,9 @@ export default function Members() {
       role: "Backend Developer",
       tag: "AIML Student",
       quote: "Building real-world solutions.",
-      skills: ["Python", "React", "AI"],
-      projects: 3,
-      commits: 120,
+      skills: ["Python", "Full Stack Development", "AI","Figma"],
+      projects: 15,
+      commits: 1000,
       badges: [
         { icon: <Zap className="w-4 h-4"/>, label: "30 days streak" },
         { icon: <Award className="w-4 h-4"/>, label: "AI Mentor" }
