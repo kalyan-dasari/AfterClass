@@ -1,73 +1,81 @@
-# React + TypeScript + Vite
+# AfterClass
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A student community platform for people who want to grow through **practical experience** — building projects, exploring AI, collaborating on real-world work, and preparing for the industry beyond the classroom.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Frontend:** React, TypeScript, Vite, Tailwind CSS v4, Framer Motion
+- **Backend:** FastAPI, SQLAlchemy, SQLite
+- **Auth:** JWT (python-jose), bcrypt
 
-## React Compiler
+## Getting Started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Prerequisites
 
-## Expanding the ESLint configuration
+- Node.js 18+
+- Python 3.10+
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Setup
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+```bash
+# Frontend
+cd frontend
+npm install
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Backend
+cd backend
+python -m venv venv
+.\venv\Scripts\pip install -r requirements.txt
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Run
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+Starts both frontend (Vite on `:5173`) and backend (FastAPI on `:8000`).
+
+### Build
+
+```bash
+npm run build
+```
+
+Outputs static files to `frontend/dist/`.
+
+## Deployment
+
+### Frontend (static)
+
+Deploy `frontend/dist/` to any static host:
+
+- **Vercel** — `vercel --prod` (set root to `frontend`, output dir to `dist`)
+- **Netlify** — drag `dist/` or connect Git repo
+- **Cloudflare Pages** — connect repo, build command `npm run build`, output `frontend/dist`
+
+### Backend (FastAPI + SQLite)
+
+The backend requires a Python server with persistent disk (SQLite):
+
+| Platform | Notes |
+|----------|-------|
+| **Render** | Web Service — start command: `uvicorn main:app --host 0.0.0.0 --port $PORT` (working dir `backend/`) |
+| **Railway** | Start command: `uvicorn main:app --host 0.0.0.0 --port $PORT` (root `backend/`) |
+| **PythonAnywhere** | Manual setup via web tab, WSGI config pointing to FastAPI |
+| **VPS** (DigitalOcean, Hetzner, etc.) | Full control, run with systemd or Docker |
+
+**Important:** SQLite stores data in a local file. On Render/Railway, enable a persistent disk or the database resets on each deploy. For production, consider migrating to PostgreSQL.
+
+### Environment Variables
+
+Create `backend/.env`:
+
+| Variable | Description |
+|----------|-------------|
+| `SECRET_KEY` | JWT signing key (change from default) |
+| `DATABASE_URL` | Override the SQLite path |
+
+### CORS
+
+Update `origins` in `backend/main.py` with your production frontend URL before deploying.
