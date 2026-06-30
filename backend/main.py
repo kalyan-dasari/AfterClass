@@ -9,11 +9,13 @@ from jose import JWTError, jwt
 from datetime import datetime, timedelta
 import os
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 SECRET_KEY = "afterclass-super-secret-key-change-in-production"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_DAYS = 30
 
-SQLALCHEMY_DATABASE_URL = "sqlite:///./afterclass.db"
+SQLALCHEMY_DATABASE_URL = f"sqlite:///{os.path.join(BASE_DIR, 'afterclass.db')}"
 engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
@@ -25,6 +27,7 @@ class Admin(Base):
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String, unique=True, index=True)
     hashed_password = Column(String)
+    role = Column(String, default="admin")
 
 class Resource(Base):
     __tablename__ = "resources"
@@ -119,7 +122,7 @@ def seed_admin():
     db = SessionLocal()
     admin = db.query(Admin).filter(Admin.username == "admin").first()
     if not admin:
-        admin = Admin(username="admin", hashed_password=pwd_context.hash("admin123"))
+        admin = Admin(username="admin", hashed_password=pwd_context.hash("admin123"), role="super_admin")
         db.add(admin)
         db.commit()
     db.close()
@@ -154,7 +157,72 @@ def login(req: LoginRequest, db: Session = Depends(get_db)):
 
 @app.get("/api/auth/me")
 def get_me(admin: Admin = Depends(get_current_admin)):
-    return {"username": admin.username}
+    return {"id": admin.id, "username": admin.username, "role": admin.role}
+
+# --- Admin management (super_admin only) ---
+def require_super_admin(admin: Admin = Depends(get_current_admin)):
+    if admin.role != "super_admin":
+        raise HTTPException(status_code=403, detail="Super admin access required")
+    return admin
+
+class AdminCreate(BaseModel):
+    username: str
+    password: str
+    role: str = "admin"
+
+class AdminUpdate(BaseModel):
+    username: str | None = None
+    password: str | None = None
+    role: str | None = None
+
+class AdminResponse(BaseModel):
+    id: int
+    username: str
+    role: str
+
+    class Config:
+        from_attributes = True
+
+@app.get("/api/admin/admins")
+def list_admins(db: Session = Depends(get_db), admin: Admin = Depends(require_super_admin)):
+    return db.query(Admin).all()
+
+@app.post("/api/admin/admins")
+def create_admin(req: AdminCreate, db: Session = Depends(get_db), admin: Admin = Depends(require_super_admin)):
+    existing = db.query(Admin).filter(Admin.username == req.username).first()
+    if existing:
+        raise HTTPException(status_code=400, detail="Username already exists")
+    new_admin = Admin(username=req.username, hashed_password=pwd_context.hash(req.password), role=req.role)
+    db.add(new_admin)
+    db.commit()
+    db.refresh(new_admin)
+    return new_admin
+
+@app.put("/api/admin/admins/{admin_id}")
+def update_admin(admin_id: int, req: AdminUpdate, db: Session = Depends(get_db), admin: Admin = Depends(require_super_admin)):
+    target = db.query(Admin).filter(Admin.id == admin_id).first()
+    if not target:
+        raise HTTPException(status_code=404, detail="Admin not found")
+    if req.username is not None:
+        target.username = req.username
+    if req.password is not None:
+        target.hashed_password = pwd_context.hash(req.password)
+    if req.role is not None:
+        target.role = req.role
+    db.commit()
+    db.refresh(target)
+    return target
+
+@app.delete("/api/admin/admins/{admin_id}")
+def delete_admin(admin_id: int, db: Session = Depends(get_db), admin: Admin = Depends(require_super_admin)):
+    if admin.id == admin_id:
+        raise HTTPException(status_code=400, detail="Cannot delete yourself")
+    target = db.query(Admin).filter(Admin.id == admin_id).first()
+    if not target:
+        raise HTTPException(status_code=404, detail="Admin not found")
+    db.delete(target)
+    db.commit()
+    return {"ok": True}
 
 # --- Generic CRUD helpers ---
 def create_item(db, model, data):

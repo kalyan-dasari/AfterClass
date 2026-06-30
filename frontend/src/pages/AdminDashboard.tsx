@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { api } from '../api'
 import {
-  BookOpen, Code, Briefcase, Users, Rocket, LogOut, Plus, Pencil, Trash2, X,
+  BookOpen, Code, Briefcase, Users, Rocket, Shield, LogOut, Plus, Pencil, Trash2, X,
 } from 'lucide-react'
 
-type Tab = 'resources' | 'projects' | 'opportunities' | 'members' | 'internships'
+type Tab = 'resources' | 'projects' | 'opportunities' | 'members' | 'internships' | 'admins'
 
 const tabs: { key: Tab; label: string; icon: React.ReactNode }[] = [
   { key: 'resources', label: 'Resources', icon: <BookOpen className="w-4 h-4" /> },
@@ -13,6 +13,7 @@ const tabs: { key: Tab; label: string; icon: React.ReactNode }[] = [
   { key: 'opportunities', label: 'Opportunities', icon: <Briefcase className="w-4 h-4" /> },
   { key: 'members', label: 'Members', icon: <Users className="w-4 h-4" /> },
   { key: 'internships', label: 'Internships', icon: <Rocket className="w-4 h-4" /> },
+  { key: 'admins', label: 'Admins', icon: <Shield className="w-4 h-4" /> },
 ]
 
 const emptyForm: Record<string, any> = {
@@ -21,6 +22,7 @@ const emptyForm: Record<string, any> = {
   opportunities: { title: '', type: '', location: '', extra: '', tag: '', action: 'Apply' },
   members: { name: '', role: '', tag: '', quote: '', skills: '', projects: 0, commits: 0, badges: '' },
   internships: { title: '', company: '', description: '', location: 'Remote', stipend: '', duration: '', google_form_link: '', tag: '' },
+  admins: { username: '', password: '', role: 'admin' },
 }
 
 export default function AdminDashboard() {
@@ -30,7 +32,14 @@ export default function AdminDashboard() {
   const [editing, setEditing] = useState<any | null>(null)
   const [form, setForm] = useState<any>(emptyForm.resources)
   const [loading, setLoading] = useState(true)
+  const [adminInfo, setAdminInfo] = useState<{ id: number; username: string; role: string } | null>(null)
   const navigate = useNavigate()
+
+  useEffect(() => {
+    api.me().then(data => {
+      if (data?.username) setAdminInfo(data)
+    }).catch(() => {})
+  }, [])
 
   useEffect(() => {
     loadItems()
@@ -45,6 +54,7 @@ export default function AdminDashboard() {
         opportunities: api.getOpportunities,
         members: api.getMembers,
         internships: api.getInternships,
+        admins: api.getAdmins,
       }
       const data = await fetcher[activeTab]()
       setItems(Array.isArray(data) ? data : [])
@@ -75,6 +85,7 @@ export default function AdminDashboard() {
       opportunities: api.createOpportunity,
       members: api.createMember,
       internships: api.createInternship,
+      admins: api.createAdmin,
     }
     const updaters: Record<string, (id: number, d: any) => Promise<any>> = {
       resources: api.updateResource,
@@ -82,10 +93,13 @@ export default function AdminDashboard() {
       opportunities: api.updateOpportunity,
       members: api.updateMember,
       internships: api.updateInternship,
+      admins: api.updateAdmin,
     }
     try {
       if (editing) {
-        await updaters[activeTab](editing.id, form)
+        const data = { ...form }
+        if (activeTab === 'admins' && !data.password) delete data.password
+        await updaters[activeTab](editing.id, data)
       } else {
         await creators[activeTab](form)
       }
@@ -105,6 +119,7 @@ export default function AdminDashboard() {
       opportunities: api.deleteOpportunity,
       members: api.deleteMember,
       internships: api.deleteInternship,
+      admins: api.deleteAdmin,
     }
     try {
       await deleters[activeTab](id)
@@ -193,6 +208,11 @@ export default function AdminDashboard() {
       { name: 'google_form_link', label: 'Google Form Link *' },
       { name: 'tag', label: 'Tag (e.g. 🔥 Hot, New)' },
     ],
+    admins: [
+      { name: 'username', label: 'Username' },
+      { name: 'password', label: 'Password', type: 'password' },
+      { name: 'role', label: 'Role (admin / super_admin)' },
+    ],
   }
 
   return (
@@ -213,7 +233,7 @@ export default function AdminDashboard() {
       <div className="max-w-6xl mx-auto px-4 py-6">
         {/* Tabs */}
         <div className="flex flex-wrap gap-1 mb-6 border-b border-border pb-2">
-          {tabs.map(tab => (
+          {tabs.filter(t => t.key !== 'admins' || adminInfo?.role === 'super_admin').map(tab => (
             <button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
@@ -243,11 +263,11 @@ export default function AdminDashboard() {
           <p className="text-gray-500">No items yet.</p>
         ) : (
           <div className="space-y-2">
-            {items.map((item: any) => (
+              {items.map((item: any) => (
               <div key={item.id} className="flex items-center justify-between bg-card border border-border rounded-lg px-4 py-3">
                 <div className="flex-1 min-w-0">
-                  <p className="font-medium truncate">{item.title || item.name}</p>
-                  <p className="text-xs text-gray-500 truncate">{item.description || item.role || item.company || item.type}</p>
+                  <p className="font-medium truncate">{item.title || item.name || item.username}</p>
+                  <p className="text-xs text-gray-500 truncate">{item.description || item.role || item.company || item.type || item.role}</p>
                 </div>
                 <div className="flex items-center gap-2 shrink-0 ml-4">
                   <button onClick={() => openEdit(item)} className="p-1.5 hover:text-primary transition-colors">
