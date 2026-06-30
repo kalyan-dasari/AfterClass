@@ -63,7 +63,7 @@ git push -u origin main
 |---|--------|
 | 1 | Go to [vercel.com/new](https://vercel.com/new) |
 | 2 | Import your GitHub repo |
-| 3 | Click **Edit** next to Root Directory → select `frontend` |
+| 3 | Click **Edit** next to Root Directory → select `frontend` (this is required since the Vite project is inside the `frontend/` folder) |
 | 4 | Framework should auto-detect as **Vite** |
 | 5 | Click **Deploy** |
 
