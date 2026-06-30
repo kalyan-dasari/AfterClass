@@ -1,4 +1,4 @@
-import { Rocket, MapPin, Phone, Mail, Heart } from 'lucide-react'
+import { Rocket, MapPin, Mail, Heart } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 export default function Footer() {
@@ -50,8 +50,12 @@ export default function Footer() {
                 <span>Maisammaguda, Medchal, Telangana</span>
               </li>
               <li className="flex items-center gap-2">
-                <Phone className="h-4 w-4 text-primary shrink-0" />
-                <span>+91 98765 43210</span>
+                <svg className="h-4 w-4 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                </svg>
+                <a href="https://www.instagram.com/after_class__?igsh=MXI3M3dxdnFleWp0OQ==" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">@after_class__</a>
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4 text-primary shrink-0" />
