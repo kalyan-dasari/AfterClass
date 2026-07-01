@@ -1,6 +1,9 @@
 {
   "name": "afterclass",
   "private": true,
+  "workspaces": [
+    "frontend"
+  ],
   "scripts": {
     "dev": "cd frontend && npm run dev:all",
     "dev:frontend": "cd frontend && npm run dev",
