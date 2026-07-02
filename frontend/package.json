@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "dev:all": "concurrently -n backend,frontend -c blue,green \"..\\backend\\venv\\Scripts\\python.exe -m uvicorn main:app --reload --app-dir ..\\backend\" \"vite\"",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && node ../scripts/sync-dist.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },

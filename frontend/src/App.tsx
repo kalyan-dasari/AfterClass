@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Navigate, Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
@@ -10,6 +10,14 @@ import Members from './pages/Members'
 import Internships from './pages/Internships'
 import AdminLogin from './pages/AdminLogin'
 import AdminDashboard from './pages/AdminDashboard'
+
+function RequireAdmin({ children }: { children: React.ReactNode }) {
+  if (!localStorage.getItem('admin_token')) {
+    return <Navigate to="/admin/login" replace />
+  }
+
+  return children
+}
 
 function App() {
   return (
@@ -25,7 +33,7 @@ function App() {
           <Route path="/members" element={<Members />} />
           <Route path="/internships" element={<Internships />} />
           <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin" element={<RequireAdmin><AdminDashboard /></RequireAdmin>} />
         </Routes>
       </main>
       <Footer />
