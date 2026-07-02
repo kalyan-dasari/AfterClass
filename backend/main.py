@@ -10,8 +10,11 @@ from jose import JWTError, jwt
 from datetime import datetime, timedelta
 import os
 
+from dotenv import load_dotenv
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, "afterclass.db")
+load_dotenv(os.path.join(os.path.dirname(BASE_DIR), ".env"))
 
 SECRET_KEY = os.getenv("SECRET_KEY", "afterclass-super-secret-key-change-in-production")
 ALGORITHM = "HS256"

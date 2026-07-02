@@ -25,6 +25,16 @@ python -m venv venv
 .\venv\Scripts\pip install -r requirements.txt
 ```
 
+### Environment
+
+Create a root `.env` file for local development. The backend reads it automatically.
+
+```bash
+copy .env.example .env
+```
+
+Set `DATABASE_URL` to your Postgres connection string locally. The provided Neon string should already work in your `.env` file for local testing.
+
 ### Run
 
 ```bash
@@ -71,8 +81,10 @@ Vercel reads the root `vercel.json`, builds the frontend from `frontend/`, and e
 ### Step 3: Configure the database
 
 1. Create a Postgres database in Neon or another provider.
-2. Copy the connection string into Vercel as `DATABASE_URL`.
-3. Redeploy the project so the Python function picks up the env var.
+2. In your Vercel project, go to Settings → Environment Variables.
+3. Add `DATABASE_URL` with your Neon connection string.
+4. If you want local development to match production, put the same value in your root `.env` file.
+5. Redeploy the project so the Python function picks up the env var.
 
 The frontend already calls `/api/...` by default, so it works on the same Vercel domain without a separate backend URL.
 
