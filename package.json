@@ -7,6 +7,6 @@
   "scripts": {
     "dev": "cd frontend && npm run dev:all",
     "dev:frontend": "cd frontend && npm run dev",
-    "build": "cd frontend && npm run build"
+    "build": "npm --prefix frontend run build && node scripts/sync-dist.mjs"
   }
 }

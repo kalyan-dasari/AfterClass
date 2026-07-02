@@ -76,7 +76,7 @@ git push -u origin main
 | 5 | Add your database env var, for example `DATABASE_URL` from Neon |
 | 6 | Click **Deploy** |
 
-Vercel reads the root `vercel.json`, builds the frontend from `frontend/`, writes the static site to `frontend/dist`, and exposes the backend through `api/index.py`.
+Vercel reads the root `vercel.json`, builds the frontend from `frontend/`, copies the static site to root `dist/`, and exposes the backend through `api/index.py`.
 
 ### Step 3: Configure the database
 
