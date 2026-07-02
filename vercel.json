@@ -2,12 +2,12 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "vite",
   "buildCommand": "npm run build",
-  "outputDirectory": "frontend/dist",
+  "outputDirectory": "dist",
   "installCommand": "npm install",
   "functions": {
     "api/index.py": {
       "maxDuration": 30,
-      "excludeFiles": "{frontend/node_modules/**,frontend/dist/**,backend/venv/**,**/__pycache__/**,**/*.pyc}"
+      "excludeFiles": "{frontend/node_modules/**,dist/**,backend/venv/**,**/__pycache__/**,**/*.pyc}"
     }
   },
   "rewrites": [
