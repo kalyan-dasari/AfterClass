@@ -71,12 +71,12 @@ git push -u origin main
 |---|--------|
 | 1 | Go to [vercel.com/new](https://vercel.com/new) |
 | 2 | Import your GitHub repo |
-| 3 | Keep the **root directory** at the repository root |
+| 3 | Set **Root Directory** to `frontend` |
 | 4 | Framework should auto-detect as **Vite** |
-| 5 | Add your database env var, for example `DATABASE_URL` from Neon |
+| 5 | Add `DATABASE_URL` in Vercel Environment Variables |
 | 6 | Click **Deploy** |
 
-Vercel reads the root `vercel.json`, builds the frontend from `frontend/`, copies the static site to root `dist/`, and exposes the backend through `api/index.py`.
+Vercel will use [frontend/vercel.json](frontend/vercel.json) to build the app, serve `/admin` and every other route through the SPA rewrite, and load the backend API through [frontend/api/index.py](frontend/api/index.py).
 
 ### Step 3: Configure the database
 
