@@ -26,12 +26,20 @@ def get_database_url():
     for key in ("DATABASE_URL", "POSTGRES_URL", "NEON_DATABASE_URL"):
         value = os.getenv(key)
         if value:
+            value = normalize_database_url(value)
             if value.startswith("postgres://"):
                 return value.replace("postgres://", "postgresql+psycopg://", 1)
             if value.startswith("postgresql://"):
                 return value.replace("postgresql://", "postgresql+psycopg://", 1)
             return value
     return f"sqlite:///{DB_PATH}"
+
+def normalize_database_url(value: str) -> str:
+    cleaned_value = value.strip()
+    for marker in ("ADMIN_USERNAME=", "ADMIN_PASSWORD=", "SECRET_KEY=", "ACCESS_TOKEN_EXPIRE_DAYS="):
+        if marker in cleaned_value:
+            cleaned_value = cleaned_value.split(marker, 1)[0].rstrip()
+    return cleaned_value
 
 
 SQLALCHEMY_DATABASE_URL = get_database_url()
