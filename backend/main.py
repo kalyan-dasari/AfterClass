@@ -19,8 +19,8 @@ load_dotenv(os.path.join(os.path.dirname(BASE_DIR), ".env"))
 SECRET_KEY = os.getenv("SECRET_KEY", "afterclass-super-secret-key-change-in-production")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_DAYS = 30
-DEFAULT_ADMIN_USERNAME = os.getenv("ADMIN_USERNAME", "admin")
-DEFAULT_ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "admin123")
+DEFAULT_ADMIN_USERNAME = os.getenv("ADMIN_USERNAME", "kalyan")
+DEFAULT_ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "Admin@123")
 
 def get_database_url():
     for key in ("DATABASE_URL", "POSTGRES_URL", "NEON_DATABASE_URL"):
