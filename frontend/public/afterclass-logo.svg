@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">AfterClass logo</title>
+  <desc id="desc">Circular AfterClass logo with gradient ring and stylized A mark.</desc>
+  <defs>
+    <linearGradient id="ring" x1="48" y1="64" x2="464" y2="448" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff8a1f"/>
+      <stop offset="0.45" stop-color="#ef3f5c"/>
+      <stop offset="1" stop-color="#7f44ff"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="160" y1="342" x2="360" y2="342" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff8a1f"/>
+      <stop offset="0.5" stop-color="#ef3f5c"/>
+      <stop offset="1" stop-color="#7f44ff"/>
+    </linearGradient>
+  </defs>
+  <circle cx="256" cy="256" r="244" fill="#fff" stroke="url(#ring)" stroke-width="12"/>
+  <path d="M146 348 236 165c7-15 18-23 30-23h2c12 0 23 8 30 23l90 183c6 12-1 27-14 27h-33c-8 0-15-4-18-11l-13-26H224l-13 26c-3 7-10 11-18 11h-33c-13 0-20-15-14-27Zm101-73h18l-9-19-9 19Z" fill="#08223f"/>
+  <path d="M202 356h108l-7 15c-5 10-15 16-26 16h-42c-11 0-21-6-26-16l-7-15Z" fill="url(#accent)"/>
+  <circle cx="198" cy="292" r="18" fill="#08223f"/>
+  <circle cx="256" cy="272" r="30" fill="#08223f"/>
+  <circle cx="314" cy="292" r="18" fill="#08223f"/>
+  <path d="M175 300c27 0 52 0 81 0 29 0 54 0 81 0" fill="none" stroke="#08223f" stroke-width="12" stroke-linecap="round"/>
+  <path d="M338 146c26 0 47 18 47 41s-21 41-47 41c-7 0-13-1-19-4l-17 16v-22c-6-7-11-17-11-31 0-23 21-41 47-41Z" fill="url(#accent)"/>
+  <circle cx="324" cy="187" r="6" fill="#fff"/>
+  <circle cx="342" cy="187" r="6" fill="#fff"/>
+  <circle cx="360" cy="187" r="6" fill="#fff"/>
+</svg>

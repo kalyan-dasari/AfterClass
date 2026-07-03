@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Menu, X, Rocket } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -22,7 +22,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="flex items-center gap-2">
-              <Rocket className="h-6 w-6 text-primary" />
+              <img src="/afterclass-logo.svg" alt="AfterClass logo" className="h-8 w-8 shrink-0" />
               <span className="font-bold text-xl tracking-tight">AfterClass</span>
             </Link>
           </div>

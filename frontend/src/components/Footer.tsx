@@ -1,4 +1,4 @@
-import { Rocket, MapPin, Mail, Heart } from 'lucide-react'
+import { MapPin, Mail, Heart } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 export default function Footer() {
@@ -21,7 +21,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="space-y-4">
             <Link to="/" className="flex items-center gap-2">
-              <Rocket className="h-6 w-6 text-primary" />
+                <img src="/afterclass-logo.svg" alt="AfterClass logo" className="h-6 w-6 shrink-0" />
               <span className="font-bold text-xl tracking-tight">AfterClass</span>
             </Link>
             <p className="text-sm text-foreground/70 leading-relaxed">
