@@ -19,6 +19,8 @@ load_dotenv(os.path.join(os.path.dirname(BASE_DIR), ".env"))
 SECRET_KEY = os.getenv("SECRET_KEY", "afterclass-super-secret-key-change-in-production")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_DAYS = 30
+DEFAULT_ADMIN_USERNAME = os.getenv("ADMIN_USERNAME", "admin")
+DEFAULT_ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "admin123")
 
 def get_database_url():
     for key in ("DATABASE_URL", "POSTGRES_URL", "NEON_DATABASE_URL"):
@@ -143,11 +145,24 @@ def get_current_admin(credentials: HTTPAuthorizationCredentials = Depends(securi
 
 def seed_admin():
     db = SessionLocal()
-    admin = db.query(Admin).filter(Admin.username == "admin").first()
+    admin = db.query(Admin).filter(Admin.username == DEFAULT_ADMIN_USERNAME).first()
     if not admin:
-        admin = Admin(username="admin", hashed_password=pwd_context.hash("admin123"), role="super_admin")
+        admin = Admin(
+            username=DEFAULT_ADMIN_USERNAME,
+            hashed_password=pwd_context.hash(DEFAULT_ADMIN_PASSWORD),
+            role="super_admin",
+        )
         db.add(admin)
-        db.commit()
+    else:
+        try:
+            password_matches = pwd_context.verify(DEFAULT_ADMIN_PASSWORD, admin.hashed_password)
+        except Exception:
+            password_matches = False
+        if not password_matches:
+            admin.hashed_password = pwd_context.hash(DEFAULT_ADMIN_PASSWORD)
+        if admin.role != "super_admin":
+            admin.role = "super_admin"
+    db.commit()
     db.close()
 
 app = FastAPI(title="AfterClass API", version="2.0.0")
@@ -172,6 +187,7 @@ class LoginRequest(BaseModel):
 
 @app.post("/api/auth/login")
 def login(req: LoginRequest, db: Session = Depends(get_db)):
+    seed_admin()
     admin = db.query(Admin).filter(Admin.username == req.username).first()
     if not admin or not pwd_context.verify(req.password, admin.hashed_password):
         raise HTTPException(status_code=401, detail="Invalid credentials")

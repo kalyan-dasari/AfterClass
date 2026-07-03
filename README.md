@@ -35,6 +35,15 @@ copy .env.example .env
 
 Set `DATABASE_URL` to your Postgres connection string locally. The provided Neon string should already work in your `.env` file for local testing.
 
+Optional admin overrides:
+
+```bash
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=admin123
+```
+
+If you do not set them, the default super-admin login is `admin` / `admin123`.
+
 ### Run
 
 ```bash
