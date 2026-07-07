@@ -19,8 +19,8 @@ load_dotenv(os.path.join(os.path.dirname(BASE_DIR), ".env"))
 SECRET_KEY = os.getenv("SECRET_KEY", "afterclass-super-secret-key-change-in-production")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_DAYS = 30
-DEFAULT_ADMIN_USERNAME = os.getenv("ADMIN_USERNAME", "kalyan")
-DEFAULT_ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "Admin@123")
+DEFAULT_ADMIN_USERNAME = os.getenv("ADMIN_USERNAME", "kalyan").split("\n")[0].strip()
+DEFAULT_ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "Admin@123").split("\n")[0].strip()[:72]
 
 def get_database_url():
     for key in ("DATABASE_URL", "POSTGRES_URL", "NEON_DATABASE_URL"):
@@ -210,7 +210,15 @@ def login(req: LoginRequest, db: Session = Depends(get_db)):
     try:
         seed_admin()
         admin = db.query(Admin).filter(Admin.username == req.username).first()
-        if not admin or not pwd_context.verify(req.password, admin.hashed_password):
+        if not admin:
+            raise HTTPException(status_code=401, detail="Invalid credentials")
+            
+        try:
+            is_valid = pwd_context.verify(req.password[:72], admin.hashed_password)
+        except Exception:
+            is_valid = False
+            
+        if not is_valid:
             raise HTTPException(status_code=401, detail="Invalid credentials")
         token = create_access_token({"sub": admin.username})
         return {"access_token": token, "token_type": "bearer"}
