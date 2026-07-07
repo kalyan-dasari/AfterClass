@@ -198,9 +198,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.on_event("startup")
-def startup():
-    seed_admin()
+
 
 # --- Auth ---
 class LoginRequest(BaseModel):

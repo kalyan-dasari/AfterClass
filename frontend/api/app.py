@@ -215,9 +215,7 @@ app.add_middleware(
 )
 
 
-@app.on_event("startup")
-def startup():
-    seed_admin()
+
 
 
 class LoginRequest(BaseModel):
