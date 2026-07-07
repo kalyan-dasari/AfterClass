@@ -20,8 +20,16 @@ load_dotenv(BASE_DIR / ".env")
 SECRET_KEY = os.getenv("SECRET_KEY", "afterclass-super-secret-key-change-in-production")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_DAYS = 30
-DEFAULT_ADMIN_USERNAME = "admin_afterclass"
-DEFAULT_ADMIN_PASSWORD = "SecurePass!2026"
+_admin_user = os.getenv("ADMIN_USERNAME", "admin").split("\n")[0].strip()
+_admin_pass = os.getenv("ADMIN_PASSWORD", "admin123").split("\n")[0].strip()
+
+if len(_admin_pass) > 50 or "postgres" in _admin_pass or "DATABASE_URL" in _admin_pass:
+    _admin_pass = "admin123"
+if len(_admin_user) > 50 or "postgres" in _admin_user or "DATABASE_URL" in _admin_user:
+    _admin_user = "admin"
+
+DEFAULT_ADMIN_USERNAME = _admin_user
+DEFAULT_ADMIN_PASSWORD = _admin_pass
 
 
 def normalize_database_url(value: str) -> str:
