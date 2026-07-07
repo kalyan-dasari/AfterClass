@@ -6,7 +6,6 @@ from sqlalchemy import create_engine, Column, Integer, String, Text, DateTime, f
 from sqlalchemy.pool import NullPool
 from sqlalchemy.orm import DeclarativeBase, sessionmaker, Session
 from pydantic import BaseModel
-from passlib.context import CryptContext
 from jose import JWTError, jwt
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -135,7 +134,16 @@ class Internship(Base):
 
 
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+import bcrypt
+
+class SimplePwdContext:
+    def hash(self, secret: str) -> str:
+        return bcrypt.hashpw(secret.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+        
+    def verify(self, secret: str, hashed: str) -> bool:
+        return bcrypt.checkpw(secret.encode('utf-8'), hashed.encode('utf-8'))
+
+pwd_context = SimplePwdContext()
 security = HTTPBearer()
 
 
