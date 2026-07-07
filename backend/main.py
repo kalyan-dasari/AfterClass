@@ -119,7 +119,7 @@ class Internship(Base):
     tag = Column(String, default="")
     created_at = Column(DateTime, server_default=func.now())
 
-Base.metadata.create_all(bind=engine)
+
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 security = HTTPBearer()
@@ -152,26 +152,38 @@ def get_current_admin(credentials: HTTPAuthorizationCredentials = Depends(securi
     return admin
 
 def seed_admin():
+    try:
+        Base.metadata.create_all(bind=engine)
+    except Exception as e:
+        import traceback
+        raise Exception(f"Failed to create tables: {traceback.format_exc()}")
+
     db = SessionLocal()
-    admin = db.query(Admin).filter(Admin.username == DEFAULT_ADMIN_USERNAME).first()
-    if not admin:
-        admin = Admin(
-            username=DEFAULT_ADMIN_USERNAME,
-            hashed_password=pwd_context.hash(DEFAULT_ADMIN_PASSWORD),
-            role="super_admin",
-        )
-        db.add(admin)
-    else:
-        try:
-            password_matches = pwd_context.verify(DEFAULT_ADMIN_PASSWORD, admin.hashed_password)
-        except Exception:
-            password_matches = False
-        if not password_matches:
-            admin.hashed_password = pwd_context.hash(DEFAULT_ADMIN_PASSWORD)
-        if admin.role != "super_admin":
-            admin.role = "super_admin"
-    db.commit()
-    db.close()
+    try:
+        admin = db.query(Admin).filter(Admin.username == DEFAULT_ADMIN_USERNAME).first()
+        if not admin:
+            admin = Admin(
+                username=DEFAULT_ADMIN_USERNAME,
+                hashed_password=pwd_context.hash(DEFAULT_ADMIN_PASSWORD),
+                role="super_admin",
+            )
+            db.add(admin)
+        else:
+            try:
+                password_matches = pwd_context.verify(DEFAULT_ADMIN_PASSWORD, admin.hashed_password)
+            except Exception:
+                password_matches = False
+            if not password_matches:
+                admin.hashed_password = pwd_context.hash(DEFAULT_ADMIN_PASSWORD)
+            if admin.role != "super_admin":
+                admin.role = "super_admin"
+        db.commit()
+    except Exception as e:
+        db.rollback()
+        import traceback
+        raise Exception(f"Failed to seed admin: {traceback.format_exc()}")
+    finally:
+        db.close()
 
 app = FastAPI(title="AfterClass API", version="2.0.0")
 
@@ -195,12 +207,19 @@ class LoginRequest(BaseModel):
 
 @app.post("/api/auth/login")
 def login(req: LoginRequest, db: Session = Depends(get_db)):
-    seed_admin()
-    admin = db.query(Admin).filter(Admin.username == req.username).first()
-    if not admin or not pwd_context.verify(req.password, admin.hashed_password):
-        raise HTTPException(status_code=401, detail="Invalid credentials")
-    token = create_access_token({"sub": admin.username})
-    return {"access_token": token, "token_type": "bearer"}
+    try:
+        seed_admin()
+        admin = db.query(Admin).filter(Admin.username == req.username).first()
+        if not admin or not pwd_context.verify(req.password, admin.hashed_password):
+            raise HTTPException(status_code=401, detail="Invalid credentials")
+        token = create_access_token({"sub": admin.username})
+        return {"access_token": token, "token_type": "bearer"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        import traceback
+        error_msg = traceback.format_exc()
+        raise HTTPException(status_code=500, detail=str(error_msg))
 
 @app.get("/api/auth/me")
 def get_me(admin: Admin = Depends(get_current_admin)):
