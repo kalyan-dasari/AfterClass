@@ -32,6 +32,8 @@ def get_database_url():
             if value.startswith("postgresql://"):
                 return value.replace("postgresql://", "postgresql+psycopg://", 1)
             return value
+    if os.getenv("VERCEL"):
+        return "sqlite:////tmp/afterclass.db"
     return f"sqlite:///{DB_PATH}"
 
 def normalize_database_url(value: str) -> str:
