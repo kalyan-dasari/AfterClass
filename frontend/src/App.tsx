@@ -10,6 +10,7 @@ import Members from './pages/Members'
 import Internships from './pages/Internships'
 import AdminLogin from './pages/AdminLogin'
 import AdminDashboard from './pages/AdminDashboard'
+import AgentChat from './pages/AgentChat'
 
 function RequireAdmin({ children }: { children: React.ReactNode }) {
   if (!localStorage.getItem('admin_token')) {
@@ -32,6 +33,7 @@ function App() {
           <Route path="/projects" element={<Projects />} />
           <Route path="/members" element={<Members />} />
           <Route path="/internships" element={<Internships />} />
+          <Route path="/ai-chat" element={<AgentChat />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<RequireAdmin><AdminDashboard /></RequireAdmin>} />
         </Routes>

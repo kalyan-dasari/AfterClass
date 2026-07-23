@@ -14,6 +14,7 @@ export default function Navbar() {
     { name: 'Opportunities', path: '/opportunities' },
     { name: 'Internships', path: '/internships' },
     { name: 'Members', path: '/members' },
+    { name: 'AI Chat', path: '/ai-chat' },
   ]
 
   return (
