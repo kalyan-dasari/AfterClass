@@ -501,12 +501,14 @@ def agent_chat(req: AgentChatRequest):
     )
 
     try:
-        with urllib.request.urlopen(req_obj, timeout=60) as resp:
+        with urllib.request.urlopen(req_obj, timeout=120) as resp:
             body = resp.read().decode("utf-8")
             return json.loads(body)
     except urllib.error.HTTPError as e:
         detail = e.read().decode("utf-8")
         return JSONResponse(status_code=e.code, content={"detail": detail})
+    except urllib.error.URLError as e:
+        return JSONResponse(status_code=504, content={"detail": f"Upstream timeout or unreachable: {e.reason}"})
     except Exception as e:
         return JSONResponse(status_code=502, content={"detail": str(e)})
 
