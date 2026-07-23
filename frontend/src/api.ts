@@ -65,9 +65,11 @@ export const api = {
   updateInternship(id: number, data: any) { return request(`/api/admin/internships/${id}`, { method: 'PUT', body: JSON.stringify(data) }) },
   deleteInternship(id: number) { return request(`/api/admin/internships/${id}`, { method: 'DELETE' }) },
 
-  // Admins (super_admin only)
-  getAdmins() { return request('/api/admin/admins') },
-  createAdmin(data: any) { return request('/api/admin/admins', { method: 'POST', body: JSON.stringify(data) }) },
-  updateAdmin(id: number, data: any) { return request(`/api/admin/admins/${id}`, { method: 'PUT', body: JSON.stringify(data) }) },
-  deleteAdmin(id: number) { return request(`/api/admin/admins/${id}`, { method: 'DELETE' }) },
+  // Agent Chat
+  agentChat(message: string) {
+    return request('/api/agent/chat', {
+      method: 'POST',
+      body: JSON.stringify({ message }),
+    })
+  },
 }

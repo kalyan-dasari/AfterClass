@@ -2,6 +2,7 @@
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from fastapi.responses import JSONResponse
 from sqlalchemy import create_engine, Column, Integer, String, Text, DateTime, func
 from sqlalchemy.pool import NullPool
 from sqlalchemy.orm import DeclarativeBase, sessionmaker, Session
@@ -10,7 +11,9 @@ from jose import JWTError, jwt
 from datetime import datetime, timedelta
 from pathlib import Path
 import os
-
+import json
+import urllib.request
+import urllib.error
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parents[2]
@@ -517,6 +520,46 @@ def update_internship(item_id: int, data: InternshipSchema, db: Session = Depend
 @app.delete("/api/admin/internships/{item_id}")
 def delete_internship(item_id: int, db: Session = Depends(get_db), admin: Admin = Depends(get_current_admin)):
     return delete_item(db, Internship, item_id)
+
+
+class AgentChatRequest(BaseModel):
+    message: str
+
+
+@app.post("/api/agent/chat")
+def agent_chat(req: AgentChatRequest):
+    lyzr_url = os.getenv("LYzR_API_URL", "https://agent-prod.studio.lyzr.ai/v3/inference/chat/")
+    lyzr_api_key = os.getenv("LYzR_API_KEY", "")
+    agent_id = os.getenv("LYzR_AGENT_ID", "")
+    user_id = os.getenv("LYzR_USER_ID", "")
+    session_id = os.getenv("LYzR_SESSION_ID", "")
+
+    payload = json.dumps({
+        "user_id": user_id,
+        "agent_id": agent_id,
+        "session_id": session_id,
+        "message": req.message,
+    }).encode("utf-8")
+
+    req_obj = urllib.request.Request(
+        lyzr_url,
+        data=payload,
+        headers={
+            "Content-Type": "application/json",
+            "x-api-key": lyzr_api_key,
+        },
+        method="POST",
+    )
+
+    try:
+        with urllib.request.urlopen(req_obj, timeout=60) as resp:
+            body = resp.read().decode("utf-8")
+            return json.loads(body)
+    except urllib.error.HTTPError as e:
+        detail = e.read().decode("utf-8")
+        return JSONResponse(status_code=e.code, content={"detail": detail})
+    except Exception as e:
+        return JSONResponse(status_code=502, content={"detail": str(e)})
 
 
 @app.get("/")
