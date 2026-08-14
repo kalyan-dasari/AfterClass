@@ -30,7 +30,7 @@ export default function Home() {
         >
           <motion.h1 
             variants={itemVariants}
-            className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-8 bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-gray-500 leading-tight"
+            className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-8 bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-gray-500 leading-tight"
           >
             College teaches you the syllabus.<br className="hidden md:block"/>
             <span className="text-primary">We help you prepare for what comes after it.</span>
