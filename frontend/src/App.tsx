@@ -1,4 +1,4 @@
-import { Navigate, Routes, Route } from 'react-router-dom'
+﻿import { Navigate, Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
@@ -22,7 +22,7 @@ function RequireAdmin({ children }: { children: React.ReactNode }) {
 
 function App() {
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground">
+    <div className="min-h-screen flex flex-col bg-background text-foreground relative">
       <Navbar />
       <main className="flex-grow">
         <Routes>
@@ -33,12 +33,12 @@ function App() {
           <Route path="/projects" element={<Projects />} />
           <Route path="/members" element={<Members />} />
           <Route path="/internships" element={<Internships />} />
-          <Route path="/ai-chat" element={<AgentChat />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<RequireAdmin><AdminDashboard /></RequireAdmin>} />
         </Routes>
       </main>
       <Footer />
+      <AgentChat />
     </div>
   )
 }

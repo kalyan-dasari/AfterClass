@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+﻿import { Link } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -9,12 +9,11 @@ export default function Navbar() {
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
-    { name: 'Resources', path: '/resources' },
+    { name: 'Learn', path: '/resources' },
     { name: 'Projects', path: '/projects' },
     { name: 'Opportunities', path: '/opportunities' },
-    { name: 'Internships', path: '/internships' },
-    { name: 'Members', path: '/members' },
-    { name: 'AI Chat', path: '/ai-chat' },
+    { name: 'Project Internships', path: '/internships' },
+    { name: 'Wall of Learners', path: '/members' },
   ]
 
   return (
@@ -28,24 +27,24 @@ export default function Navbar() {
             </Link>
           </div>
           
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-4">
+          <div className="hidden lg:block">
+            <div className="ml-10 flex items-baseline space-x-2">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   to={link.path}
-                  className="hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                  className="hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap"
                 >
                   {link.name}
                 </Link>
               ))}
-              <a href="https://chat.whatsapp.com/HMIK7feuFaPHtsUhU42WD3" target="_blank" rel="noopener noreferrer" className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
-                Join Community
+              <a href="https://chat.whatsapp.com/HMIK7feuFaPHtsUhU42WD3" target="_blank" rel="noopener noreferrer" className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap ml-2">
+                Join AfterClass
               </a>
             </div>
           </div>
           
-          <div className="md:hidden flex items-center">
+          <div className="lg:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="inline-flex items-center justify-center p-2 rounded-md text-foreground hover:text-primary focus:outline-none"
@@ -63,7 +62,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden overflow-hidden bg-background/95 backdrop-blur-md"
+            className="lg:hidden overflow-hidden bg-background/95 backdrop-blur-md"
           >
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               {navLinks.map((link) => (
@@ -83,7 +82,7 @@ export default function Navbar() {
                 className="block px-3 py-2 rounded-md text-base font-medium bg-primary text-white mt-4 text-center"
                 onClick={() => setIsOpen(false)}
               >
-                Join Community
+                Join AfterClass
               </a>
             </div>
           </motion.div>
