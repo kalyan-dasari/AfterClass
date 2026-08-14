@@ -22,7 +22,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="flex items-center gap-2">
-              <img src="/afterclass-logo.svg" alt="AfterClass logo" className="h-8 w-8 shrink-0" />
+              <img src="/logo.png" alt="AfterClass logo" className="h-8 w-8 shrink-0" />
               <span className="font-bold text-xl tracking-tight">AfterClass</span>
             </Link>
           </div>
