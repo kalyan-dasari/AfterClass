@@ -1,6 +1,6 @@
 ﻿import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Github, ExternalLink, ArrowRight } from 'lucide-react'
+import { GitBranch, ExternalLink, ArrowRight } from 'lucide-react'
 import { api } from '../api'
 import { Link } from 'react-router-dom'
 
@@ -47,7 +47,7 @@ export default function Projects() {
                   <div className="flex justify-between items-start mb-4">
                     <h3 className="text-2xl font-bold">{proj.title}</h3>
                     <div className="flex gap-2">
-                      {proj.github && <a href={proj.github} target="_blank" rel="noopener noreferrer" className="p-2 bg-background rounded-full hover:text-primary transition-colors"><Github className="w-4 h-4"/></a>}
+                      {proj.github && <a href={proj.github} target="_blank" rel="noopener noreferrer" className="p-2 bg-background rounded-full hover:text-primary transition-colors"><GitBranch className="w-4 h-4"/></a>}
                       {proj.demo && <a href={proj.demo} target="_blank" rel="noopener noreferrer" className="p-2 bg-background rounded-full hover:text-primary transition-colors"><ExternalLink className="w-4 h-4"/></a>}
                     </div>
                   </div>
@@ -65,7 +65,7 @@ export default function Projects() {
                         ))}
                       </div>
                     )}
-                    <Link to={/projects/ + proj.id} className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors mt-2">
+                    <Link to={`/projects/${proj.id}`} className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors mt-2">
                       View Project <ArrowRight className="w-4 h-4" />
                     </Link>
                   </div>

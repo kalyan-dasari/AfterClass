@@ -1,8 +1,7 @@
 ﻿import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { User, Code2, Award, Zap, Github, Linkedin, ArrowRight } from 'lucide-react'
+import { User, Code2, Zap, ArrowRight, GitBranch, Globe } from 'lucide-react'
 import { api } from '../api'
-import { Link } from 'react-router-dom'
 
 export default function Members() {
   const [members, setMembers] = useState<any[]>([])
@@ -83,8 +82,8 @@ export default function Members() {
                           </div>
                         )}
                         <div className="ml-auto flex gap-2">
-                          <button className="text-gray-500 hover:text-white transition-colors"><Github className="w-4 h-4"/></button>
-                          <button className="text-gray-500 hover:text-[#0077b5] transition-colors"><Linkedin className="w-4 h-4"/></button>
+                          <button className="text-gray-500 hover:text-white transition-colors" title="GitHub"><GitBranch className="w-4 h-4"/></button>
+                          <button className="text-gray-500 hover:text-primary transition-colors" title="Portfolio / LinkedIn"><Globe className="w-4 h-4"/></button>
                         </div>
                       </div>
                     </div>

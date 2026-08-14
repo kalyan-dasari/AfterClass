@@ -1,6 +1,6 @@
 ﻿import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Briefcase, MapPin, Calendar, DollarSign, ExternalLink, ArrowRight, CheckCircle2, XCircle } from 'lucide-react'
+import { MapPin, Calendar, DollarSign, ExternalLink, CheckCircle2, XCircle } from 'lucide-react'
 import { api } from '../api'
 
 export default function Internships() {

@@ -1,6 +1,6 @@
 ﻿import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { ArrowLeft, Github, ExternalLink, Code2, User } from 'lucide-react'
+import { ArrowLeft, GitBranch, ExternalLink, Code2, User } from 'lucide-react'
 import { api } from '../api'
 
 export default function ProjectDetails() {
@@ -50,7 +50,7 @@ export default function ProjectDetails() {
             <div className="flex gap-2 ml-auto">
               {project.github && (
                 <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 rounded-lg bg-card border border-border hover:bg-muted transition-colors">
-                  <Github className="w-4 h-4" /> GitHub
+                  <GitBranch className="w-4 h-4" /> GitHub
                 </a>
               )}
               {project.demo && (

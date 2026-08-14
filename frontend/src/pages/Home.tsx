@@ -1,5 +1,5 @@
 ﻿import { motion } from 'framer-motion'
-import { ArrowRight, Terminal, BookOpen, Users, Rocket, Target, Briefcase, ChevronRight, Github, Code, LayoutDashboard } from 'lucide-react'
+import { ArrowRight, BookOpen, Users, Rocket, Target, Code, LayoutDashboard } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 export default function Home() {

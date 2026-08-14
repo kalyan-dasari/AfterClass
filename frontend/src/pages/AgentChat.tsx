@@ -1,6 +1,6 @@
 ﻿import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Bot, Send, User, Loader2, X, MessageSquare } from 'lucide-react'
+import { Bot, Send, Loader2, X, MessageSquare } from 'lucide-react'
 import { api } from '../api'
 
 export default function AgentChat() {
@@ -90,7 +90,7 @@ export default function AgentChat() {
               {messages.map((m, i) => (
                 <div
                   key={i}
-                  className={lex items-start gap-3  + ${m.role === 'user' ? 'justify-end' : 'justify-start'}}
+                  className={`flex items-start gap-3 ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   {m.role === 'assistant' && (
                     <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0 mt-1">
@@ -98,11 +98,11 @@ export default function AgentChat() {
                     </div>
                   )}
                   <div
-                    className={max-w-[80%] px-4 py-2 rounded-2xl text-sm leading-relaxed  + ${
+                    className={`max-w-[80%] px-4 py-2 rounded-2xl text-sm leading-relaxed ${
                       m.role === 'user'
                         ? 'bg-primary text-white rounded-br-sm'
                         : 'bg-muted text-foreground rounded-bl-sm'
-                    }}
+                    }`}
                   >
                     {m.content}
                   </div>

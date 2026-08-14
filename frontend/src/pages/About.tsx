@@ -1,5 +1,4 @@
-﻿import { motion } from 'framer-motion'
-import { CheckCircle2, GitPullRequest, TerminalSquare, MessageSquare, Play, Github, Code, CheckSquare, Zap, Users, ShieldCheck, Flag } from 'lucide-react'
+﻿import { CheckCircle2, GitPullRequest, TerminalSquare, MessageSquare, Code, CheckSquare, Zap, Users, ShieldCheck, Flag } from 'lucide-react'
 
 export default function About() {
   return (
@@ -40,7 +39,7 @@ export default function About() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               { title: "Something you built", desc: "A real project you can discuss.", icon: <Code className="w-6 h-6"/> },
-              { title: "GitHub experience", desc: "Actual collaboration and contributions.", icon: <Github className="w-6 h-6"/> },
+              { title: "Git / GitHub experience", desc: "Actual collaboration and contributions.", icon: <GitPullRequest className="w-6 h-6"/> },
               { title: "Team experience", desc: "Learn how to work with others.", icon: <Users className="w-6 h-6"/> },
               { title: "Communication", desc: "Practice presenting and explaining your work.", icon: <MessageSquare className="w-6 h-6"/> },
               { title: "Career awareness", desc: "Understand what to learn and why.", icon: <Flag className="w-6 h-6"/> },

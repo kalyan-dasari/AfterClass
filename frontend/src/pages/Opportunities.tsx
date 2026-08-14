@@ -1,6 +1,6 @@
 ﻿import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Briefcase, MapPin, DollarSign, Calendar, ExternalLink, ArrowRight } from 'lucide-react'
+import { Briefcase, MapPin, DollarSign, Calendar, ArrowRight } from 'lucide-react'
 import { api } from '../api'
 
 export default function Opportunities() {

@@ -1,6 +1,6 @@
 ﻿import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { BookOpen, Code, Terminal, Video, ExternalLink, ArrowRight } from 'lucide-react'
+import { BookOpen, Code, Terminal, Video, ArrowRight } from 'lucide-react'
 import { api } from '../api'
 
 const iconMap: Record<string, React.ReactNode> = {
