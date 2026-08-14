@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { User, Code2, Award, Zap } from 'lucide-react'
+import { User, Code2, Award, Zap, Github, Linkedin, ArrowRight } from 'lucide-react'
 import { api } from '../api'
+import { Link } from 'react-router-dom'
 
 export default function Members() {
   const [members, setMembers] = useState<any[]>([])
@@ -13,90 +14,97 @@ export default function Members() {
     }).catch(() => setMembers([])).finally(() => setLoading(false))
   }, [])
 
-  if (loading) return <div className="max-w-6xl mx-auto py-20 px-4"><p className="text-gray-400">Loading...</p></div>
-
   return (
-    <div className="max-w-6xl mx-auto py-20 px-4">
-      <div className="mb-12 text-center">
-        <h1 className="text-4xl font-bold mb-4">Wall of Learners</h1>
-        <p className="text-gray-400 max-w-2xl mx-auto">Meet the builders, thinkers, and creators of the AfterClass community.</p>
-      </div>
-
-      {members.length === 0 ? (
-        <p className="text-gray-500 text-center">No members yet.</p>
-      ) : (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {members.map((member, i) => {
-            const skills = member.skills ? member.skills.split(',').map((s: string) => s.trim()) : []
-            let badges: { icon: React.ReactNode; label: string }[] = []
-            try {
-              const parsed = member.badges ? JSON.parse(member.badges) : []
-              badges = Array.isArray(parsed) ? parsed.map((b: string) => ({ icon: <Award className="w-4 h-4"/>, label: b })) : []
-            } catch { badges = [] }
-
-            return (
-              <motion.div 
-                key={member.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                className="p-6 rounded-2xl bg-card border border-border flex flex-col relative overflow-hidden group"
-              >
-                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full -z-10 group-hover:bg-primary/10 transition-colors" />
-                
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-16 h-16 bg-background rounded-full border-2 border-primary flex items-center justify-center shrink-0">
-                    <User className="w-8 h-8 text-gray-400" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold">{member.name}</h3>
-                    {member.role && <p className="text-sm text-primary font-medium">{member.role}</p>}
-                    {member.tag && <p className="text-xs text-gray-500">{member.tag}</p>}
-                  </div>
-                </div>
-
-                {member.quote && <p className="text-gray-300 italic mb-6">"{member.quote}"</p>}
-
-                <div className="space-y-4 mt-auto border-t border-border/50 pt-4">
-                  {skills.length > 0 && (
-                    <div>
-                      <div className="text-xs text-gray-500 mb-2">Skills</div>
-                      <div className="flex flex-wrap gap-2">
-                        {skills.map((s: string, j: number) => (
-                          <span key={j} className="text-xs px-2 py-1 bg-background rounded text-gray-300">{s}</span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="flex gap-4">
-                    {member.projects > 0 && (
-                      <div className="flex items-center gap-1 text-sm text-gray-400">
-                        <Code2 className="w-4 h-4"/> {member.projects} Projects
-                      </div>
-                    )}
-                    {member.commits > 0 && (
-                      <div className="flex items-center gap-1 text-sm text-gray-400">
-                        <Zap className="w-4 h-4"/> {member.commits} Commits
-                      </div>
-                    )}
-                  </div>
-
-                  {badges.length > 0 && (
-                    <div className="flex flex-wrap gap-2 pt-2">
-                      {badges.map((b, j) => (
-                        <div key={j} className="flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-accent/10 text-accent border border-accent/20">
-                          {b.icon} {b.label}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </motion.div>
-            )
-          })}
+    <div className="flex flex-col min-h-screen">
+      <section className="w-full py-24 px-4 bg-card/30 border-b border-border">
+        <div className="max-w-6xl mx-auto text-center">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6">Wall of Learners</h1>
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto">Meet the builders, thinkers, and creators of the AfterClass community.</p>
         </div>
-      )}
+      </section>
+
+      <section className="w-full py-20 px-4 flex-grow">
+        <div className="max-w-6xl mx-auto">
+          {loading ? (
+            <div className="text-center py-20 text-gray-400">Loading members...</div>
+          ) : members.length === 0 ? (
+            <div className="text-center py-20 border border-border rounded-2xl bg-card">
+              <h3 className="text-xl font-bold mb-2">The wall is currently empty.</h3>
+              <p className="text-gray-400">Join the community and become the first learner on the wall.</p>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {members.map((member, i) => {
+                const skills = member.skills ? member.skills.split(',').map((s: string) => s.trim()) : []
+                
+                return (
+                  <motion.div 
+                    key={member.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                    className="p-6 rounded-2xl bg-card border border-border flex flex-col hover:border-primary/50 transition-colors group relative overflow-hidden"
+                  >
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-[100px] -z-10 group-hover:bg-primary/10 transition-colors" />
+                    
+                    <div className="flex items-start gap-4 mb-4">
+                      <div className="w-16 h-16 bg-background rounded-full border-2 border-border group-hover:border-primary transition-colors flex items-center justify-center shrink-0 overflow-hidden">
+                        <User className="w-8 h-8 text-gray-500" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-xl font-bold">{member.name}</h3>
+                        {member.role && <p className="text-sm text-primary font-medium">{member.role}</p>}
+                        {member.tag && <p className="text-xs text-gray-500 mt-1">{member.tag}</p>}
+                      </div>
+                    </div>
+
+                    {member.quote && <p className="text-gray-400 text-sm mb-6 flex-grow">"{member.quote}"</p>}
+
+                    <div className="space-y-4 mt-auto">
+                      {skills.length > 0 && (
+                        <div className="flex flex-wrap gap-2">
+                          {skills.map((s: string, j: number) => (
+                            <span key={j} className="text-xs px-2 py-1 bg-background rounded-md text-gray-300 border border-border">
+                              {s}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+
+                      <div className="flex gap-4 pt-4 border-t border-border/50">
+                        {member.projects > 0 && (
+                          <div className="flex items-center gap-1 text-sm text-gray-400">
+                            <Code2 className="w-4 h-4"/> {member.projects} Projects
+                          </div>
+                        )}
+                        {member.commits > 0 && (
+                          <div className="flex items-center gap-1 text-sm text-gray-400">
+                            <Zap className="w-4 h-4"/> {member.commits} Commits
+                          </div>
+                        )}
+                        <div className="ml-auto flex gap-2">
+                          <button className="text-gray-500 hover:text-white transition-colors"><Github className="w-4 h-4"/></button>
+                          <button className="text-gray-500 hover:text-[#0077b5] transition-colors"><Linkedin className="w-4 h-4"/></button>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                )
+              })}
+            </div>
+          )}
+        </div>
+      </section>
+
+      <section className="w-full py-20 px-4 bg-card/50 border-t border-border">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-4">Want to be part of the Wall of Learners?</h2>
+          <p className="text-gray-400 mb-8">Join the community, start building, and showcase your skills.</p>
+          <a href="https://chat.whatsapp.com/HMIK7feuFaPHtsUhU42WD3" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-8 py-3 rounded-xl bg-primary text-white font-medium hover:bg-primary/90 transition-colors gap-2">
+            Join AfterClass <ArrowRight className="w-4 h-4" />
+          </a>
+        </div>
+      </section>
     </div>
   )
 }

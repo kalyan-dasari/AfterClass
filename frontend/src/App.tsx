@@ -6,8 +6,10 @@ import About from './pages/About'
 import Resources from './pages/Resources'
 import Opportunities from './pages/Opportunities'
 import Projects from './pages/Projects'
+import ProjectDetails from './pages/ProjectDetails'
 import Members from './pages/Members'
 import Internships from './pages/Internships'
+import InternshipDetails from './pages/InternshipDetails'
 import AdminLogin from './pages/AdminLogin'
 import AdminDashboard from './pages/AdminDashboard'
 import AgentChat from './pages/AgentChat'
@@ -31,8 +33,10 @@ function App() {
           <Route path="/resources" element={<Resources />} />
           <Route path="/opportunities" element={<Opportunities />} />
           <Route path="/projects" element={<Projects />} />
+          <Route path="/projects/:id" element={<ProjectDetails />} />
           <Route path="/members" element={<Members />} />
           <Route path="/internships" element={<Internships />} />
+          <Route path="/internships/:id" element={<InternshipDetails />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<RequireAdmin><AdminDashboard /></RequireAdmin>} />
         </Routes>
