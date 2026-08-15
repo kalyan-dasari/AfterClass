@@ -1,4 +1,4 @@
-# Force Vercel Redeploy - Clean
+﻿# Force Vercel Redeploy - Clean
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
@@ -103,16 +103,6 @@ class Project(Base):
     created_at = Column(DateTime, server_default=func.now())
 
 
-class Opportunity(Base):
-    __tablename__ = "opportunities"
-    id = Column(Integer, primary_key=True, index=True)
-    title = Column(String)
-    type = Column(String)
-    location = Column(String)
-    extra = Column(String, default="")
-    tag = Column(String, default="")
-    action = Column(String, default="Apply")
-    created_at = Column(DateTime, server_default=func.now())
 
 
 class Member(Base):
@@ -431,33 +421,14 @@ def delete_project(item_id: int, db: Session = Depends(get_db), admin: Admin = D
     return delete_item(db, Project, item_id)
 
 
-class OpportunitySchema(BaseModel):
-    title: str
-    type: str = ""
-    location: str = ""
-    extra: str = ""
-    tag: str = ""
-    action: str = "Apply"
 
 
-@app.get("/api/opportunities")
-def list_opportunities(db: Session = Depends(get_db)):
-    return db.query(Opportunity).order_by(Opportunity.created_at.desc()).all()
 
 
-@app.post("/api/admin/opportunities")
-def create_opportunity(data: OpportunitySchema, db: Session = Depends(get_db), admin: Admin = Depends(get_current_admin)):
-    return create_item(db, Opportunity, data.model_dump())
 
 
-@app.put("/api/admin/opportunities/{item_id}")
-def update_opportunity(item_id: int, data: OpportunitySchema, db: Session = Depends(get_db), admin: Admin = Depends(get_current_admin)):
-    return update_item(db, Opportunity, item_id, data.model_dump())
 
 
-@app.delete("/api/admin/opportunities/{item_id}")
-def delete_opportunity(item_id: int, db: Session = Depends(get_db), admin: Admin = Depends(get_current_admin)):
-    return delete_item(db, Opportunity, item_id)
 
 
 class MemberSchema(BaseModel):
