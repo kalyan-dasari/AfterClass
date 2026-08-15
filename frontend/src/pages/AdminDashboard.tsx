@@ -1,26 +1,22 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { api } from '../api'
 import {
   BookOpen, Code, Briefcase, Users, Rocket, Shield, LogOut, Plus, Pencil, Trash2, X,
 } from 'lucide-react'
 
-type Tab = 'resources' | 'projects' | 'opportunities' | 'members' | 'internships' | 'admins'
+type Tab = 'resources' | 'projects' | 'members' | 'internships' | 'admins'
 
 const tabs: { key: Tab; label: string; icon: React.ReactNode }[] = [
   { key: 'resources', label: 'Resources', icon: <BookOpen className="w-4 h-4" /> },
-  { key: 'projects', label: 'Projects', icon: <Code className="w-4 h-4" /> },
-  { key: 'opportunities', label: 'Opportunities', icon: <Briefcase className="w-4 h-4" /> },
-  { key: 'members', label: 'Members', icon: <Users className="w-4 h-4" /> },
+  { key: 'projects', label: 'Projects', icon: <Code className="w-4 h-4" /> },  { key: 'members', label: 'Members', icon: <Users className="w-4 h-4" /> },
   { key: 'internships', label: 'Internships', icon: <Rocket className="w-4 h-4" /> },
   { key: 'admins', label: 'Admins', icon: <Shield className="w-4 h-4" /> },
 ]
 
 const emptyForm: Record<string, any> = {
   resources: { title: '', description: '', tag: '', link: '' },
-  projects: { title: '', description: '', author: '', tech: '', github: '', demo: '' },
-  opportunities: { title: '', type: '', location: '', extra: '', tag: '', action: 'Apply' },
-  members: { name: '', role: '', tag: '', quote: '', skills: '', projects: 0, commits: 0, badges: '' },
+  projects: { title: '', description: '', author: '', tech: '', github: '', demo: '' },  members: { name: '', role: '', tag: '', quote: '', skills: '', projects: 0, commits: 0, badges: '' },
   internships: { title: '', company: '', description: '', location: 'Remote', stipend: '', duration: '', google_form_link: '', tag: '' },
   admins: { username: '', password: '', role: 'admin' },
 }
@@ -50,9 +46,7 @@ export default function AdminDashboard() {
     try {
       const fetcher: Record<string, () => Promise<any>> = {
         resources: api.getResources,
-        projects: api.getProjects,
-        opportunities: api.getOpportunities,
-        members: api.getMembers,
+        projects: api.getProjects,        members: api.getMembers,
         internships: api.getInternships,
         admins: api.getAdmins,
       }
@@ -81,17 +75,13 @@ export default function AdminDashboard() {
     e.preventDefault()
     const creators: Record<string, (d: any) => Promise<any>> = {
       resources: api.createResource,
-      projects: api.createProject,
-      opportunities: api.createOpportunity,
-      members: api.createMember,
+      projects: api.createProject,      members: api.createMember,
       internships: api.createInternship,
       admins: api.createAdmin,
     }
     const updaters: Record<string, (id: number, d: any) => Promise<any>> = {
       resources: api.updateResource,
-      projects: api.updateProject,
-      opportunities: api.updateOpportunity,
-      members: api.updateMember,
+      projects: api.updateProject,      members: api.updateMember,
       internships: api.updateInternship,
       admins: api.updateAdmin,
     }
@@ -115,9 +105,7 @@ export default function AdminDashboard() {
     if (!confirm('Delete this item?')) return
     const deleters: Record<string, (id: number) => Promise<any>> = {
       resources: api.deleteResource,
-      projects: api.deleteProject,
-      opportunities: api.deleteOpportunity,
-      members: api.deleteMember,
+      projects: api.deleteProject,      members: api.deleteMember,
       internships: api.deleteInternship,
       admins: api.deleteAdmin,
     }
@@ -179,16 +167,7 @@ export default function AdminDashboard() {
       { name: 'tech', label: 'Tech Stack (comma separated)' },
       { name: 'github', label: 'GitHub Link' },
       { name: 'demo', label: 'Demo Link' },
-    ],
-    opportunities: [
-      { name: 'title', label: 'Title' },
-      { name: 'type', label: 'Type (Internship, Hackathon, Bootcamp)' },
-      { name: 'location', label: 'Location' },
-      { name: 'extra', label: 'Extra info (e.g. Prize ₹50,000)' },
-      { name: 'tag', label: 'Tag (e.g. 🔥 Hot)' },
-      { name: 'action', label: 'Button text (Apply, Register, Enroll)' },
-    ],
-    members: [
+    ],    members: [
       { name: 'name', label: 'Name' },
       { name: 'role', label: 'Role' },
       { name: 'tag', label: 'Tag (e.g. AIML Student)' },
@@ -203,10 +182,10 @@ export default function AdminDashboard() {
       { name: 'company', label: 'Company' },
       { name: 'description', label: 'Description', type: 'textarea' },
       { name: 'location', label: 'Location' },
-      { name: 'stipend', label: 'Stipend (e.g. ₹10,000/month)' },
+      { name: 'stipend', label: 'Stipend (e.g. â‚¹10,000/month)' },
       { name: 'duration', label: 'Duration (e.g. 3 months)' },
       { name: 'google_form_link', label: 'Google Form Link *' },
-      { name: 'tag', label: 'Tag (e.g. 🔥 Hot, New)' },
+      { name: 'tag', label: 'Tag (e.g. ðŸ”¥ Hot, New)' },
     ],
     admins: [
       { name: 'username', label: 'Username' },
@@ -310,3 +289,4 @@ export default function AdminDashboard() {
     </div>
   )
 }
+

@@ -11,7 +11,6 @@ export default function Navbar() {
     { name: 'About', path: '/about' },
     { name: 'Learn', path: '/resources' },
     { name: 'Projects', path: '/projects' },
-    { name: 'Opportunities', path: '/opportunities' },
     { name: 'Project Internships', path: '/internships' },
     { name: 'Wall of Learners', path: '/members' },
   ]
@@ -91,3 +90,4 @@ export default function Navbar() {
     </nav>
   )
 }
+

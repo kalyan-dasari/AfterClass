@@ -36,7 +36,6 @@ export default function Footer() {
               <li><Link to="/about" className="hover:text-primary transition-colors">About Us</Link></li>
               <li><Link to="/resources" className="hover:text-primary transition-colors">Resources</Link></li>
               <li><Link to="/projects" className="hover:text-primary transition-colors">Projects</Link></li>
-              <li><Link to="/opportunities" className="hover:text-primary transition-colors">Opportunities</Link></li>
               <li><Link to="/members" className="hover:text-primary transition-colors">Members</Link></li>
             </ul>
           </div>
@@ -78,3 +77,4 @@ export default function Footer() {
     </footer>
   )
 }
+

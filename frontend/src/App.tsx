@@ -4,7 +4,6 @@ import Footer from './components/Footer'
 import Home from './pages/Home'
 import About from './pages/About'
 import Resources from './pages/Resources'
-import Opportunities from './pages/Opportunities'
 import Projects from './pages/Projects'
 import ProjectDetails from './pages/ProjectDetails'
 import Members from './pages/Members'
@@ -31,7 +30,6 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/resources" element={<Resources />} />
-          <Route path="/opportunities" element={<Opportunities />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/projects/:id" element={<ProjectDetails />} />
           <Route path="/members" element={<Members />} />
@@ -48,3 +46,4 @@ function App() {
 }
 
 export default App
+
