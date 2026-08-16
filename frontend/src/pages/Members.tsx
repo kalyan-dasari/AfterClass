@@ -99,7 +99,7 @@ export default function Members() {
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-4">Want to be part of the Wall of Learners?</h2>
           <p className="text-gray-400 mb-8">Join the community, start building, and showcase your skills.</p>
-          <a href="https://chat.whatsapp.com/HMIK7feuFaPHtsUhU42WD3" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-8 py-3 rounded-xl bg-primary text-white font-medium hover:bg-primary/90 transition-colors gap-2">
+          <a href="https://whatsapp.com/channel/0029Vb6Ld12545uxjacxJz2y" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-8 py-3 rounded-xl bg-primary text-white font-medium hover:bg-primary/90 transition-colors gap-2">
             Join AfterClass <ArrowRight className="w-4 h-4" />
           </a>
         </div>
@@ -107,3 +107,4 @@ export default function Members() {
     </div>
   )
 }
+

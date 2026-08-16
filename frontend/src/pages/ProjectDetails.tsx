@@ -91,7 +91,7 @@ export default function ProjectDetails() {
             <div className="p-6 rounded-2xl bg-primary/5 border border-primary/20 text-center">
               <h3 className="font-bold mb-2">Want to contribute?</h3>
               <p className="text-sm text-gray-400 mb-4">Join the AfterClass community and start building with us.</p>
-              <a href="https://chat.whatsapp.com/HMIK7feuFaPHtsUhU42WD3" target="_blank" rel="noopener noreferrer" className="inline-flex w-full px-4 py-2 bg-primary text-white justify-center items-center rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors">
+              <a href="https://whatsapp.com/channel/0029Vb6Ld12545uxjacxJz2y" target="_blank" rel="noopener noreferrer" className="inline-flex w-full px-4 py-2 bg-primary text-white justify-center items-center rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors">
                 Join Community
               </a>
             </div>
@@ -101,3 +101,4 @@ export default function ProjectDetails() {
     </div>
   )
 }
+

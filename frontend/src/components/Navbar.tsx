@@ -37,7 +37,7 @@ export default function Navbar() {
                   {link.name}
                 </Link>
               ))}
-              <a href="https://chat.whatsapp.com/HMIK7feuFaPHtsUhU42WD3" target="_blank" rel="noopener noreferrer" className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap ml-2">
+              <a href="https://whatsapp.com/channel/0029Vb6Ld12545uxjacxJz2y" target="_blank" rel="noopener noreferrer" className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap ml-2">
                 Join AfterClass
               </a>
             </div>
@@ -75,7 +75,7 @@ export default function Navbar() {
                 </Link>
               ))}
               <a 
-                href="https://chat.whatsapp.com/HMIK7feuFaPHtsUhU42WD3" 
+                href="https://whatsapp.com/channel/0029Vb6Ld12545uxjacxJz2y" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="block px-3 py-2 rounded-md text-base font-medium bg-primary text-white mt-4 text-center"
@@ -90,4 +90,5 @@ export default function Navbar() {
     </nav>
   )
 }
+
 

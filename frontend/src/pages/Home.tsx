@@ -44,7 +44,7 @@ export default function Home() {
           </motion.p>
           
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-            <a href="https://chat.whatsapp.com/HMIK7feuFaPHtsUhU42WD3" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto px-8 py-4 rounded-xl bg-primary text-white font-medium hover:bg-primary/90 transition-all flex items-center justify-center gap-2 group text-lg">
+            <a href="https://whatsapp.com/channel/0029Vb6Ld12545uxjacxJz2y" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto px-8 py-4 rounded-xl bg-primary text-white font-medium hover:bg-primary/90 transition-all flex items-center justify-center gap-2 group text-lg">
               Join AfterClass
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
@@ -220,7 +220,7 @@ export default function Home() {
           <h2 className="text-4xl md:text-6xl font-extrabold mb-6">Your career shouldn't begin in your final year.</h2>
           <p className="text-xl text-gray-400 mb-10">Start exploring. Start building. Start preparing.</p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="https://chat.whatsapp.com/HMIK7feuFaPHtsUhU42WD3" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto px-8 py-4 rounded-xl bg-primary text-white font-medium hover:bg-primary/90 transition-all flex items-center justify-center gap-2 text-lg">
+            <a href="https://whatsapp.com/channel/0029Vb6Ld12545uxjacxJz2y" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto px-8 py-4 rounded-xl bg-primary text-white font-medium hover:bg-primary/90 transition-all flex items-center justify-center gap-2 text-lg">
               Join AfterClass
             </a>
             <Link to="/projects" className="w-full sm:w-auto px-8 py-4 rounded-xl bg-card border border-border text-foreground font-medium hover:bg-muted transition-all flex items-center justify-center gap-2 text-lg">
@@ -233,3 +233,4 @@ export default function Home() {
     </div>
   )
 }
+
